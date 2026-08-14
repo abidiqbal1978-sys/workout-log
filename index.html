@@ -1101,8 +1101,8 @@ window.addEventListener('error', function(e) {
 })();
 </script>
   window.addEventListener('error', function(e) {
-  // Ignore generic "Script error" – harmless cross-origin security warning (e.g., from iOS share sheet)
-  if (e.message === 'Script error.' && e.lineno === 0 && e.colno === 0) {
+  // Ignore any generic cross-origin "Script error" (common on iOS share sheet, 3rd-party scripts)
+  if (e.lineno === 0 && e.colno === 0 && e.message && e.message.toLowerCase().includes('script error')) {
     return;
   }
   var d = document.createElement('div');
