@@ -1084,10 +1084,31 @@ window.addEventListener('error', function(e) {
       });
       document.getElementById("cancelReset").addEventListener("click", () => { modalRoot.innerHTML = ""; });
     });
+    // Register Service Worker for offline support
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js').then(() => {
+        console.log('✅ Service Worker registered');
+      }).catch(() => {
+        console.log('⚠️ Service Worker registration failed');
+      });
+    }
 
     renderToday();
   }
 })();
+    renderToday();
+  }
+})();
 </script>
+  window.addEventListener('error', function(e) {
+  // Ignore generic "Script error" – harmless cross-origin security warning (e.g., from iOS share sheet)
+  if (e.message === 'Script error.' && e.lineno === 0 && e.colno === 0) {
+    return;
+  }
+  var d = document.createElement('div');
+  d.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#c0604f;color:#fff;padding:16px;font-family:monospace;font-size:13px;z-index:99999;white-space:pre-wrap;line-height:1.5;';
+  d.textContent = 'ERROR ON PAGE: ' + e.message + ' — line ' + e.lineno + ', col ' + e.colno;
+  document.body.appendChild(d);
+});
 </body>
 </html>
