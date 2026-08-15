@@ -1101,14 +1101,8 @@ window.addEventListener('error', function(e) {
 })();
 </script>
   window.addEventListener('error', function(e) {
-  // Ignore any generic cross-origin "Script error" (common on iOS share sheet, 3rd-party scripts)
-  if (e.lineno === 0 && e.colno === 0 && e.message && e.message.toLowerCase().includes('script error')) {
-    return;
-  }
-  var d = document.createElement('div');
-  d.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#c0604f;color:#fff;padding:16px;font-family:monospace;font-size:13px;z-index:99999;white-space:pre-wrap;line-height:1.5;';
-  d.textContent = 'ERROR ON PAGE: ' + e.message + ' — line ' + e.lineno + ', col ' + e.colno;
-  document.body.appendChild(d);
+  // Silently ignore errors (especially iOS share sheet cross-origin errors)
+  // If you ever need to debug, check the Console in Safari Web Inspector.
 });
 </body>
 </html>
